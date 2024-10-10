@@ -8,6 +8,6 @@
 import Foundation
 
 struct Quote: Decodable {
-    let charater: String
+    let character: String
     let quote: String
 }
