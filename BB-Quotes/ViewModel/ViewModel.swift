@@ -29,12 +29,13 @@ class ViewModel {
         quote = try! decoder.decode(Quote.self, from: quoteData)
         
         let characterData = try! Data(contentsOf: Bundle.main.url(forResource: "samplecharacter", withExtension: "json")!)
+        
         character = try! decoder.decode(Character.self, from: characterData)
     }
     
     func getData(for show: String) async {
-        status = .fetching
         
+        status = .fetching
         do {
             quote = try await fetcher.fetchQuote(from: show)
             character = try await fetcher.fetchCharacter(quote.character)
