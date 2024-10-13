@@ -20,6 +20,11 @@ struct ContentView: View {
                 .tabItem {
                     Label("Better Call Saul", systemImage: "briefcase")
                 }
+            QuoteView(show: "El Camino")
+                .toolbarBackground(.visible, for: .tabBar)
+                .tabItem {
+                    Label("El Camino", systemImage: "car")
+                }
         }
         .preferredColorScheme(.dark)
     }
