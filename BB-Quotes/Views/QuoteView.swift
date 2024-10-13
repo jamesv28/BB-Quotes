@@ -10,6 +10,8 @@ import SwiftUI
 struct QuoteView: View {
     let vm = ViewModel()
     let show: String
+    @State var showCharacterInfo: Bool = false
+    
     var body: some View {
         GeometryReader { geo in
             ZStack {
@@ -18,7 +20,9 @@ struct QuoteView: View {
                     .frame(width: geo.size.width * 2.7, height: geo.size.height * 1.2 )
                 VStack {
                     VStack {
+                        
                         Spacer(minLength: 60)
+                        
                         switch vm.status {
                         case .notStarted:
                             EmptyView()
@@ -53,6 +57,9 @@ struct QuoteView: View {
                             }
                             .frame(width: geo.size.width / 1.1, height: geo.size.height / 1.8)
                             .clipShape(.rect(cornerRadius: 60))
+                            .onTapGesture {
+                                showCharacterInfo.toggle()
+                            }
                         case .failed(let error):
                             Text("Error: \(error.localizedDescription)")
                         }
@@ -83,6 +90,9 @@ struct QuoteView: View {
             .frame(width: geo.size.width, height: geo.size.height )
         }
         .ignoresSafeArea()
+        .sheet(isPresented: $showCharacterInfo) {
+            CharacterView(character: vm.character, show: show)
+        }
     }
 }
 
